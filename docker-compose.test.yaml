@@ -1,0 +1,16 @@
+services:
+  sut:
+    build:
+      context: .
+      target: test
+    depends_on:
+      - postgres_test
+    env_file:
+      - .test.env
+
+
+  postgres_test:
+    image: postgres:alpine
+    env_file:
+      - .test.env
+
