@@ -1,6 +1,6 @@
 import { db } from "../db";
 
-const productTable = "product" as const;
+const tableName = "product" as const;
 
 export type Product = {
   id: number;
@@ -27,7 +27,7 @@ export class ShowProductError extends Error {
 async function show(productId: number): Promise<Product> {
   try {
     const conn = await db.connect();
-    const sql = `SELECT * FROM ${productTable} WHERE id = ${productId}`;
+    const sql = `SELECT * FROM ${tableName} WHERE id = ${productId}`;
     const result = await conn.query<Product>(sql);
     conn.release();
     if (!result.rows[0])
@@ -45,7 +45,7 @@ async function show(productId: number): Promise<Product> {
 
 async function create(product: Omit<Product, "id">): Promise<Product> {
   const conn = await db.connect();
-  const sql = `INSERT INTO ${productTable} (name, price, category) VALUES($1, $2, $3) RETURNING *`;
+  const sql = `INSERT INTO ${tableName} (name, price, category) VALUES($1, $2, $3) RETURNING *`;
   const result = await conn.query<Product>(sql, [
     product.name,
     product.price,
@@ -59,7 +59,7 @@ async function create(product: Omit<Product, "id">): Promise<Product> {
 
 async function productByCategory(category: string): Promise<Product[]> {
   const conn = await db.connect();
-  const sql = `SELECT * FROM ${productTable} WHERE category = ${category}`;
+  const sql = `SELECT * FROM ${tableName} WHERE category = ${category}`;
   const result = await conn.query<Product>(sql);
   conn.release();
   return result.rows;
