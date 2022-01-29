@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "watch": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
-    "start": "node dist/index.js",
+    "start": "yarn db:up && node dist/index.js",
     "build": "npx tsc",
     "test": "yarn db:up && jasmine",
     "lint": "eslint src --ext .ts --fix",
