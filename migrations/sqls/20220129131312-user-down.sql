@@ -1,1 +1,1 @@
-DROP TABLE user;
+DROP TABLE store_users;
