@@ -4,6 +4,8 @@ The company stakeholders want to create an online storefront to showcase their g
 
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application.
 
+---
+
 ## API Endpoints
 
 #### Products
@@ -22,6 +24,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - Current Order by user (args: user id)[token required] `GET /api/order/current`
 - Completed Orders by user (args: user id)[token required] `GET /api/order/complete`
+
+---
 
 ## Data Shapes
 
@@ -48,6 +52,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+---
+
 ## Database schema
 
 ### User table
@@ -59,3 +65,37 @@ These are the notes from a meeting with the frontend developer that describe wha
 | first_name | Varchar |
 | last_name  | Varchar |
 | password   | Varchar |
+
+### Product table
+
+| Field    | Type    |
+| -------- | ------- |
+| id (PK)  | Integer |
+| name     | Varchar |
+| price    | Integer |
+| category | Varchar |
+
+### Product table
+
+| Field    | Type    |
+| -------- | ------- |
+| id (PK)  | Integer |
+| name     | Varchar |
+| price    | Integer |
+| category | Varchar |
+
+### User order table
+
+| Field                | Type                  |
+| -------------------- | --------------------- |
+| id (PK)              | Integer               |
+| user_id (FK to User) | Integer               |
+| status               | `active` / `complete` |
+
+### Order products table
+
+| Field                           | Type    |
+| ------------------------------- | ------- |
+| order_id (PK) (FK to user)      | Integer |
+| product_id (PK) (FK to product) | Integer |
+| quantity                        | Integer |
