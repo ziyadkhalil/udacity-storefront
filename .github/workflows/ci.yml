@@ -16,7 +16,7 @@ jobs:
       TOKEN_SECRET: ${{secrets.TOKEN_SECRET}}
       SALT_ROUNDS: ${{secrets.SALT_ROUNDS}}
       BCRYPT_PASSWORD: ${{secrets.BCRYPT_PASSWORD}}
-      
+
     steps:
       -
         name: Checkout
@@ -27,10 +27,8 @@ jobs:
 
       -
         name: Build 
-        run: |
-           docker compose -f ./docker-compose.test.yaml build
+        run: docker compose -f ./docker-compose.test.yaml build
 
       -
         name: Test
-        run: |
-          docker compose -f ./docker-compose.test.yaml up --exit-code-from sut
+        run:  docker compose -f ./docker-compose.test.yaml up --exit-code-from sut
