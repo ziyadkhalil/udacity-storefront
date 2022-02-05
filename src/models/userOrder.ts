@@ -31,9 +31,10 @@ async function addOrderItem(
 
 async function currentOrder(userId: number): Promise<Order> {
   const conn = await db.connect();
-  const sql = `SELECT product.id, order_products.quantity, product.name, product.price, product.category, user_order.id as "orderId", user_order.user_id as "userId", user_order.status FROM ${userOrderTable} INNER JOIN ${orderProductTable} ON ${userOrderTable}.id = ${orderProductTable}.order_id INNER JOIN product ON product.id = order_products.product_id WHERE ${userOrderTable}.user_id = ${userId} AND ${userOrderTable}.status = 'active'`;
+  const sql = `SELECT product.id, order_products.quantity, product.name, product.price, product.category, user_order.id as "orderId", user_order.user_id as "userId", user_order.status FROM ${userOrderTable} LEFT JOIN ${orderProductTable} ON ${userOrderTable}.id = ${orderProductTable}.order_id LEFT JOIN product ON product.id = order_products.product_id WHERE ${userOrderTable}.user_id = ${userId} AND ${userOrderTable}.status = 'active'`;
   const results = await conn.query(sql);
   conn.release();
+
   if (results.rowCount === 0) throw new Error("No current order");
   let orderItems: Order["items"] = [];
   if (results.rows[0].id !== null) {
@@ -63,7 +64,7 @@ async function completeActiveOrder(userId: number) {
 
 async function completedOrders(userId: number) {
   const conn = await db.connect();
-  const sql = `SELECT product.id, order_products.quantity, product.name, product.price, product.category, user_order.id as "orderId", user_order.user_id as "userId", user_order.status FROM ${userOrderTable} INNER JOIN ${orderProductTable} ON ${userOrderTable}.id = ${orderProductTable}.order_id INNER JOIN product ON product.id = order_products.product_id WHERE ${userOrderTable}.user_id = ${userId} AND ${userOrderTable}.status = 'complete'`;
+  const sql = `SELECT product.id, order_products.quantity, product.name, product.price, product.category, user_order.id as "orderId", user_order.user_id as "userId", user_order.status FROM ${userOrderTable} LEFT JOIN ${orderProductTable} ON ${userOrderTable}.id = ${orderProductTable}.order_id LEFT JOIN product ON product.id = order_products.product_id WHERE ${userOrderTable}.user_id = ${userId} AND ${userOrderTable}.status = 'complete'`;
   const result = await conn.query(sql);
   conn.release();
   if (result.rowCount === 0) return [];

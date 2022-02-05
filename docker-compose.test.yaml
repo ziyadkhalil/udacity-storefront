@@ -21,7 +21,9 @@ services:
       - POSTGRES_DB
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-
+      - TOKEN_SECRET
+      - BCRYPT_PASSWORD
+      - SALT_ROUNDS
 
   postgres_test:
     image: postgres:alpine

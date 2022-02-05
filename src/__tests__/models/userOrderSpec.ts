@@ -8,6 +8,7 @@ describe("User order store", () => {
 
   it("Creates active order for user", async () => {
     const user = await userStore.create({
+      userName: "test-user-3",
       firstName: "test-1",
       lastName: "test-1",
       password: "password",
@@ -29,6 +30,7 @@ describe("User order store", () => {
     });
 
     const user = await userStore.create({
+      userName: "test-user-2",
       firstName: "test-1",
       lastName: "test-1",
       password: "password",
@@ -50,6 +52,7 @@ describe("User order store", () => {
 
   it("Gets current order of a user", async () => {
     const user = await userStore.create({
+      userName: "test-user-4",
       firstName: "test-1",
       lastName: "test-1",
       password: "password",
@@ -89,6 +92,7 @@ describe("User order store", () => {
 
   it("Completes active order", async () => {
     const user = await userStore.create({
+      userName: "randomUser",
       firstName: "test-1",
       lastName: "test-1",
       password: "password",
@@ -117,6 +121,7 @@ describe("User order store", () => {
     });
 
     const user = await userStore.create({
+      userName: "test-user-1",
       firstName: "test-1",
       lastName: "test-1",
       password: "password",
